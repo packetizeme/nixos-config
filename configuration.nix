@@ -88,17 +88,6 @@ in
     export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
   '';
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -112,12 +101,12 @@ in
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
   # Get some rest
   services.redshift.enable = true;
 
   # File sync
+  # TODO Move into user-specific config?
   services.syncthing = {
     enable = true;
     configDir = "/home/leah/.config/syncthing";
@@ -130,9 +119,6 @@ in
   # Use NVIDIA driver
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
-
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -143,30 +129,23 @@ in
   # KDE compliains if power management is disabled (per install cd nixpkg)
   powerManagement.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.jane = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  # };
+  # User accounts
   users.mutableUsers = false;
-  users.users.root.hashedPassword = secrets.root.hashedPassword;
-  users.users.leah = {
-    isNormalUser = true;
-    uid = 1000;
-    extraGroups = [ "wheel" "audio" ];
-    createHome = true;
-    home = "/home/leah";
-    hashedPassword = secrets.leah.hashedPassword;
-    description = "Leah Ives";
+  users.users = {
+    root.hashedPassword = secrets.root.hashedPassword;
+    leah = {
+      isNormalUser = true;
+      uid = 1000;
+      extraGroups = [ "wheel" "audio" ];
+      createHome = true;
+      home = "/home/leah";
+      hashedPassword = secrets.leah.hashedPassword;
+      description = "Leah Ives";
+    };
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.03"; # Did you read the comment?
+  # Version of NixOS initially installed
+  system.stateVersion = "20.03";
 
 }
 
