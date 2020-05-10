@@ -6,14 +6,23 @@
 
 let
   secrets = import ./secrets.nix;
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
 in
 {
+  nixpkgs.config.packageOverrides = pkgs: {
+    unstable = import unstableTarball {
+      config = config.nixpkgs.config;
+    };
+  };
   nixpkgs.config.allowUnfree = true; # Required for NVIDIA driver
   nixpkgs.config.pulseaudio = true;
 
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./v4l2loopback.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -65,7 +74,8 @@ in
     discord
     espeak # TTS
     spectacle # KDE screenshots - move this?
-    obs-studio
+    unstable.obs-studio
+    unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
     pinentry-qt
     kwalletcli # provides pinentry-kwallet
   ];
