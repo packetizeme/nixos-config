@@ -78,7 +78,15 @@ in
     unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
     pinentry-qt
     kwalletcli # provides pinentry-kwallet
+    virt-manager
   ];
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemuRunAsRoot = false;
+    };
+  };
 
   # This section to allow for yubikey-based SSH key
   # TODO Note: need to set pinentry program in gpg-agent.conf,
