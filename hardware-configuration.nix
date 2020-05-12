@@ -20,6 +20,10 @@
       device = "/dev/disk/by-uuid/8f1fa970-ab84-4b0a-96c8-4e0d1cdc57e1";
       keyFile = "/dev/mapper/acryptkey";
     };
+    cryptdev1 = {
+      device = "/dev/disk/by-uuid/8876c012-a7a8-4d60-a85f-b915da20d05f";
+      keyFile = "/dev/mapper/acryptkey";
+    };
   };
 
   fileSystems."/" =
@@ -44,6 +48,11 @@
 
   fileSystems."/persistent" =
     { device = "tank0/safe/persistent";
+      fsType = "zfs";
+    };
+
+  fileSystems."/data" =
+    { device = "tank1/data";
       fsType = "zfs";
     };
 
