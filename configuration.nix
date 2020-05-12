@@ -73,12 +73,14 @@ in
     audacity
     discord
     espeak # TTS
-    spectacle # KDE screenshots - move this?
     unstable.obs-studio
     unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
     pinentry-qt
-    kwalletcli # provides pinentry-kwallet
     virt-manager
+    # KDE Applications
+    spectacle # KDE screenshots
+    kwalletcli # provides pinentry-kwallet
+    gwenview # Image viewer
   ];
 
   virtualisation = {
