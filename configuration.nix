@@ -122,6 +122,13 @@ in
   services.xserver.enable = true;
   services.xserver.layout = "us";
 
+  # Steam fixes from nixpkgs#86480
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+  hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
+
   # Get some rest
   services.redshift.enable = true;
 
