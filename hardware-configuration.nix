@@ -26,6 +26,11 @@
     };
   };
 
+  boot.initrd.postMountCommands = ''
+    # Close LUKS key
+    cryptsetup close /dev/mapper/acryptkey
+  '';
+
   fileSystems."/" =
     { device = "tank0/local/root";
       fsType = "zfs";
