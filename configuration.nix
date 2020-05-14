@@ -77,6 +77,7 @@ in
     unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
     pinentry-qt
     virt-manager
+    zoom-us
     # KDE Applications
     spectacle # KDE screenshots
     kwalletcli # provides pinentry-kwallet
