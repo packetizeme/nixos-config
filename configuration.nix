@@ -82,6 +82,8 @@ in
     kwalletcli # provides pinentry-kwallet
     gwenview # KDE Image viewer
     wine
+    isync
+    tree
   ];
 
   virtualisation = {
