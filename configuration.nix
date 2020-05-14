@@ -84,6 +84,8 @@ in
     wine
     isync
     tree
+    python3
+    (python3.withPackages(ps: with ps; [ ipython ])) # TODO Understand why "ps: with ps;" is required; what does it do?
   ];
 
   virtualisation = {
