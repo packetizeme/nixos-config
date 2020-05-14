@@ -78,10 +78,10 @@ in
     pinentry-qt
     virt-manager
     zoom-us
-    # KDE Applications
     spectacle # KDE screenshots
     kwalletcli # provides pinentry-kwallet
-    gwenview # Image viewer
+    gwenview # KDE Image viewer
+    wine
   ];
 
   virtualisation = {
