@@ -163,6 +163,9 @@ in
   # KDE compliains if power management is disabled (per install cd nixpkg)
   powerManagement.enable = true;
 
+  # Add the fish shell
+  programs.fish.enable = true;
+
   # User accounts
   users.mutableUsers = false;
   users.users = {
@@ -175,6 +178,7 @@ in
       home = "/home/leah";
       hashedPassword = secrets.leah.hashedPassword;
       description = "Leah Ives";
+      shell = pkgs.fish;
     };
   };
 
