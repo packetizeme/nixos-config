@@ -81,6 +81,7 @@ in
     spectacle # KDE screenshots
     kwalletcli # provides pinentry-kwallet
     gwenview # KDE Image viewer
+    okular # KDE PDF reader
     wine
     isync
     tree
