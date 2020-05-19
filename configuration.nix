@@ -96,6 +96,15 @@ in
       enable = true;
       qemuRunAsRoot = false;
     };
+    docker.enable = true;
+  };
+
+  docker-containers = {
+    morningpaper = {
+      image = "r.j3ss.co/morningpaper2remarkable";
+      cmd = [ "--interval=20h" ];
+      volumes = [ "/home/leah/.rmapi:/home/user/.rmapi:rw" ];
+    };
   };
 
   # This section to allow for yubikey-based SSH key
