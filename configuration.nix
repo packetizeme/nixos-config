@@ -135,6 +135,9 @@ in
   # Enable U2F support
   hardware.u2f.enable = true;
 
+  # Keep clock in sync (NTP)
+  services.chrony.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
