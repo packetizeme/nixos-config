@@ -89,6 +89,7 @@ in
     (python3.withPackages(ps: with ps; [ ipython ])) # TODO Understand why "ps: with ps;" is required; what does it do?
     borgbackup # TODO research the borgbackup service for configuration
     notmuch
+    gimp
   ];
 
   virtualisation = {
