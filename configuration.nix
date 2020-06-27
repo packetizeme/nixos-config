@@ -35,7 +35,7 @@ in
   boot.supportedFilesystems = [ "zfs" ]; # Required for ZFS root
 
   networking.useDHCP = false;
-  networking.interfaces.enp4s0.useDHCP = true;
+  networking.interfaces.enp5s0.useDHCP = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -90,6 +90,7 @@ in
     borgbackup # TODO research the borgbackup service for configuration
     notmuch
     gimp
+    hugo
   ];
 
   virtualisation = {
