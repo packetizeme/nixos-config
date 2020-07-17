@@ -91,6 +91,9 @@ in
     notmuch
     gimp
     hugo
+    gnucash
+    libreoffice
+    ntfs3g
   ];
 
   virtualisation = {
