@@ -96,6 +96,14 @@ in
     ntfs3g
   ];
 
+  # Enable automatic updates
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = false;
+
+  # Perform periodic garbage collection to free space
+  nix.gc.automatic = true;
+  nix.gc.dates = "04:00";
+
   virtualisation = {
     libvirtd = {
       enable = true;
