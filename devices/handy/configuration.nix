@@ -18,7 +18,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelParams = [ "nomodeset=1" ];
 
   networking.hostId = "97b06e88"; # Required for ZFS
   networking.hostName = "handy"; # Define your hostname.
@@ -85,6 +84,7 @@ in
       enable = true;
       enableSSHSupport = true;
     };
+    sway.enable = true;
   };
   environment.shellInit = ''
     export GPG_TTY="$(tty)"
@@ -98,6 +98,9 @@ in
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  # I am accelerated
+  hardware.opengl.enable = true;
 
   # Enable U2F support
   hardware.u2f.enable = true;
