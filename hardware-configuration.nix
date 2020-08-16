@@ -31,6 +31,12 @@
     cryptsetup close /dev/mapper/acryptkey
   '';
 
+  # Clean root at boot
+  # Thanks to Graham Christensen: https://grahamc.com/blog/erase-your-darlings
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r tank0/local/root@empty
+  '';
+
   fileSystems."/" =
     { device = "tank0/local/root";
       fsType = "zfs";
@@ -53,6 +59,11 @@
 
   fileSystems."/persistent" =
     { device = "tank0/safe/persistent";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/lib/libvirt" =
+    { device = "tank0/safe/libvirt";
       fsType = "zfs";
     };
 

@@ -96,6 +96,11 @@ in
     ntfs3g
   ];
 
+  # Relocate nixos config using symlink
+  environment.etc."nixos" = {
+    source = "/home/leah/code/nixos/";
+  };
+
   # Enable automatic updates
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
@@ -212,4 +217,3 @@ in
   system.stateVersion = "20.03";
 
 }
-
