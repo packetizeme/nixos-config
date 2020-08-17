@@ -117,13 +117,7 @@ in
     docker.enable = true;
   };
 
-  docker-containers = {
-    morningpaper = {
-      image = "r.j3ss.co/morningpaper2remarkable";
-      cmd = [ "--interval=20h" ];
-      volumes = [ "/home/leah/.rmapi:/home/user/.rmapi:rw" ];
-    };
-  };
+  # docker-containers = {};
 
   # This section to allow for yubikey-based SSH key
   # TODO Note: need to set pinentry program in gpg-agent.conf,
