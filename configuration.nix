@@ -116,9 +116,8 @@ in
 
   nix = {
     gc = {
-      # Perform periodic garbage collection to free space
-      automatic = true;
-      dates = "04:00";
+      automatic = true; # Enable automatic garbage collection
+      dates = "*:0/30"; # Run garbage collector every half hour
     };
   };
 
