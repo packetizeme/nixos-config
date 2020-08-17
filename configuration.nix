@@ -61,48 +61,24 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    vim
-    git
-    file
-    gnupg
-    firefox
-    keepassxc
-    tcpdump
-    nmap
-    wireshark
-    wireshark-cli
-    p7zip
-    emacs
-    shellcheck
-    htop
-    steam
-    steam-run-native
-    vlc
-    audacity
-    discord
-    espeak # TTS
-    unstable.obs-studio
-    unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
-    pinentry-qt
-    virt-manager
-    zoom-us
-    spectacle # KDE screenshots
-    kwalletcli # provides pinentry-kwallet
-    gwenview # KDE Image viewer
-    okular # KDE PDF reader
-    wine
-    isync
-    tree
-    python3
-    (python3.withPackages(ps: with ps; [ ipython ])) # TODO Understand why "ps: with ps;" is required; what does it do?
     borgbackup # TODO research the borgbackup service for configuration
-    notmuch
-    gimp
-    hugo
-    gnucash
-    libreoffice
+    emacs
+    file
+    firefox
+    git
+    gnupg
+    gwenview # KDE Image viewer
+    htop
+    isync
+    kwalletcli # provides pinentry-kwallet
     ntfs3g
+    okular # KDE PDF reader
+    pinentry-qt
+    python3
+    spectacle # KDE screenshots
+    tcpdump
+    vim
+    virt-manager
   ];
 
   # Relocate nixos config using symlink
@@ -205,6 +181,32 @@ in
       hashedPassword = secrets.leah.hashedPassword;
       description = "Leah Ives";
       shell = pkgs.fish;
+      packages = with pkgs; [
+        audacity
+        discord
+        espeak # TTS
+        gimp
+        gnucash
+        hugo
+        keepassxc
+        libreoffice
+        nmap
+        notmuch
+        p7zip
+        (python3.withPackages(ps: with ps; [ ipython ])) # TODO Understand why "ps: with ps;" is required; what does it do?
+        shellcheck
+        steam
+        steam-run-native
+        tree
+        unstable.obs-studio
+        unstable.obs-v4l2sink # TODO Note: plugin will not be available until manually linked into ~/.config/obs-studio/plugins/
+        vlc
+        wget
+        wine
+        wireshark
+        wireshark-cli
+        zoom-us
+      ];
     };
   };
 
