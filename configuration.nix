@@ -11,13 +11,17 @@ let
       https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
 in
 {
-  nixpkgs.config.packageOverrides = pkgs: {
-    unstable = import unstableTarball {
-      config = config.nixpkgs.config;
+  nixpkgs = {
+    config = {
+      packageOverrides = pkgs: {
+        unstable = import unstableTarball {
+          config = config.nixpkgs.config;
+        };
+      };
+      allowUnfree = true; # Required for NVIDIA driver
+      pulseaudio = true;
     };
   };
-  nixpkgs.config.allowUnfree = true; # Required for NVIDIA driver
-  nixpkgs.config.pulseaudio = true;
 
   imports =
     [ # Include the results of the hardware scan.
@@ -25,17 +29,22 @@ in
       ./v4l2loopback.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    supportedFilesystems = [ "zfs" ]; # Required for ZFS root
+  };
 
-  networking.hostId = "e5b769f7"; # Required for ZFS
-  networking.hostName = "bellatrix"; # Define your hostname.
+  networking = {
+    hostName = "bellatrix";
+    hostId = "e5b769f7"; # Random host ID, required for ZFS
 
-  boot.supportedFilesystems = [ "zfs" ]; # Required for ZFS root
-
-  networking.useDHCP = false;
-  networking.interfaces.enp5s0.useDHCP = true;
+    # Don't use DHCP except on our regular network interface
+    useDHCP = false;
+    interfaces.enp5s0.useDHCP = true;
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -105,9 +114,13 @@ in
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 
-  # Perform periodic garbage collection to free space
-  nix.gc.automatic = true;
-  nix.gc.dates = "04:00";
+  nix = {
+    gc = {
+      # Perform periodic garbage collection to free space
+      automatic = true;
+      dates = "04:00";
+    };
+  };
 
   virtualisation = {
     libvirtd = {
@@ -119,11 +132,33 @@ in
 
   # docker-containers = {};
 
-  # This section to allow for yubikey-based SSH key
-  # TODO Note: need to set pinentry program in gpg-agent.conf,
-  # which isn't handled as part of this config.
-  services.pcscd.enable = true;
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services = {
+    pcscd.enable = true; # Smartcard daemon, used for yubikey GPG
+    udev.packages = [ pkgs.yubikey-personalization ]; # Handle yubikey nicely
+    printing.enable = true; # Enable CUPS
+    chrony.enable = true; # Keep clock in sync (NTP)
+    redshift.enable = true; # Color shift in hopes of getting better sleep
+
+    xserver = {
+      enable = true;
+      layout = "us";
+      videoDrivers = [ "nvidia" ]; # Use NVIDIA driver
+      displayManager.sddm.enable = true; # Nice logon
+      desktopManager.plasma5.enable = true; # Enable KDE
+    };
+
+    # TODO: Move file sync to user config
+    # File sync
+    syncthing = {
+      enable = true;
+      configDir = "/home/leah/.config/syncthing";
+      dataDir = "/home/leah/sync";
+      user = "leah";
+      relay.enable = false;
+      openDefaultPorts = true;
+    };
+  };
+
   programs = {
     ssh.startAgent = false;
     gnupg.agent = {
@@ -137,22 +172,12 @@ in
     export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
   '';
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # Enable U2F support
   hardware.u2f.enable = true;
-
-  # Keep clock in sync (NTP)
-  services.chrony.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
 
   # Steam fixes from nixpkgs#86480
   hardware.opengl = {
@@ -161,31 +186,8 @@ in
   };
   hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
 
-  # Get some rest
-  services.redshift.enable = true;
+  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true; # KDE browser integration
 
-  # File sync
-  # TODO Move into user-specific config?
-  services.syncthing = {
-    enable = true;
-    configDir = "/home/leah/.config/syncthing";
-    dataDir = "/home/leah/sync";
-    user = "leah";
-    relay.enable = false;
-    openDefaultPorts = true;
-  };
-
-  # Use NVIDIA driver
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Allow use of Firefox Plasma integration
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
-
-  # KDE compliains if power management is disabled (per install cd nixpkg)
   powerManagement.enable = true;
 
   # Add the fish shell
