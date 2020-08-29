@@ -195,7 +195,7 @@ in
         gimp
         gnucash
         hugo
-        keepassxc
+        unstable.keepassxc
         libreoffice
         nmap
         notmuch
