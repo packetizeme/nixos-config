@@ -21,6 +21,9 @@ in
       allowUnfree = true; # Required for NVIDIA driver
       pulseaudio = true;
     };
+    overlays = [
+      (import ./packages/overlay.nix)
+    ];
   };
 
   imports =
@@ -79,6 +82,7 @@ in
     tcpdump
     vim
     virt-manager
+    sddm-lain-wired-theme
   ];
 
   # Relocate nixos config using symlink
@@ -118,7 +122,10 @@ in
       enable = true;
       layout = "us";
       videoDrivers = [ "nvidia" ]; # Use NVIDIA driver
-      displayManager.sddm.enable = true; # Nice logon
+      displayManager.sddm = {
+        enable = true;
+        theme = "lain-wired";
+      };
       desktopManager.plasma5.enable = true; # Enable KDE
     };
 
