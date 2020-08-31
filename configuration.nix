@@ -99,6 +99,7 @@ in
       automatic = true; # Enable automatic garbage collection
       dates = "*:0/30"; # Run garbage collector every half hour
     };
+    useSandbox = true;
   };
 
   virtualisation = {
