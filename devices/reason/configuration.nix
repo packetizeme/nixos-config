@@ -17,7 +17,8 @@
 
   networking.hostName = "reason"; # Define your hostname.
   networking.hostId = "4535b0e5";
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
@@ -67,7 +68,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.leah = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   # List packages installed in system profile. To search, run:
