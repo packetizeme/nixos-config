@@ -22,7 +22,7 @@ in
       pulseaudio = true;
     };
     overlays = [
-      (import ./packages/overlay.nix)
+      (import ../../packages/overlay.nix)
     ];
   };
 
