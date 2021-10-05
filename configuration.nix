@@ -160,7 +160,7 @@ in
   hardware.pulseaudio.enable = true;
 
   # Enable U2F support
-  hardware.u2f.enable = true;
+  # hardware.u2f.enable = true;
 
   # Steam fixes from nixpkgs#86480
   hardware.opengl = {
