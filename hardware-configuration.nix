@@ -33,9 +33,9 @@
 
   # Clean root at boot
   # Thanks to Graham Christensen: https://grahamc.com/blog/erase-your-darlings
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r tank0/local/root@empty
-  '';
+  # boot.initrd.postDeviceCommands = lib.mkAfter ''
+  #   zfs rollback -r tank0/local/root@empty
+  # '';
 
   fileSystems."/" =
     { device = "tank0/local/root";
