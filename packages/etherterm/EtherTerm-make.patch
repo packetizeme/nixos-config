@@ -1,0 +1,54 @@
+--- EtherTerm-62ed28f08f498dee4f28e9c6b82a45edf3d9a80b/linux/EtherTerm.mk		2020-08-29 22:48:27.498818430 -0700
++++ EtherTerm-62ed28f08f498dee4f28e9c6b82a45edf3d9a80b/linux/EtherTerm.mk	2020-08-29 22:25:41.899048931 -0700
+@@ -12,11 +12,11 @@
+ CurrentFileName        :=
+ CurrentFilePath        :=
+ CurrentFileFullPath    :=
+-User                   :=Michae Griffin
+-Date                   :=18/08/19
+-CodeLitePath           :="/home/merc/.codelite"
+-LinkerName             :=/usr/bin/g++
+-SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
++#User                   :=Michae Griffin
++#Date                   :=18/08/19
++#CodeLitePath           :="/home/merc/.codelite"
++LinkerName             :=g++
++SharedObjectLinkerName :=g++ -shared -fPIC
+ ObjectSuffix           :=.o
+ DependSuffix           :=.o.d
+ PreprocessSuffix       :=.i
+@@ -39,7 +39,8 @@
+ IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch).. $(IncludeSwitch)../src 
+ IncludePCH             := 
+ RcIncludePath          := 
+-Libs                   := $(LibrarySwitch)SDL2main $(LibrarySwitch)SDL2 $(LibrarySwitch)pthread $(LibrarySwitch)ssh $(LibrarySwitch)yaml-cpp 
++Libs                   := $(LibrarySwitch)SDL2 $(LibrarySwitch)pthread $(LibrarySwitch)ssh $(LibrarySwitch)yaml-cpp 
++#Libs                   := SDL2main SDL2 pthread ssh yaml-cpp 
+ ArLibs                 :=  "SDL2main" "SDL2" "pthread" "libssh" "yaml-cpp" 
+ LibPath                := $(LibraryPathSwitch). 
+ 
+@@ -47,19 +48,19 @@
+ ## Common variables
+ ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
+ ##
+-AR       := /usr/bin/ar rcu
+-CXX      := /usr/bin/g++
+-CC       := /usr/bin/gcc
++#AR       := /usr/bin/ar rcu
++#CXX      := /usr/bin/g++
++#CC       := /usr/bin/gcc
+ CXXFLAGS :=  -g -O0 -pedantic -W -std=c++11 -Wall $(Preprocessors)
+ CFLAGS   :=  -g -O0 -pedantic -W -std=c++11 -Wall  $(Preprocessors)
+ ASFLAGS  := 
+-AS       := /usr/bin/as
++#AS       := /usr/bin/as
+ 
+ 
+ ##
+ ## User defined environment variables
+ ##
+-CodeLiteDir:=/usr/share/codelite
++#CodeLiteDir:=/usr/share/codelite
+ Objects0=$(IntermediateDirectory)/src_input_handler.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_link_list.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_menu_config.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_menu_function.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_menu_io.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_menu_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_protocol.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_renderer.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_screen_buffer.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/src_sequence_decoder.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_sequence_parser.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_session_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_surface_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_telnet_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_window_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_io_service.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_socket_handler.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_socket_ssh.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_socket_telnet.cpp$(ObjectSuffix) \
+ 	$(IntermediateDirectory)/src_irc_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_socket_irc.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_session_io.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_common_io.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_dialing_directory_dao.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_dialing_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_font_manager.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_font_set_dao.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL2_net_SDLnet.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL2_net_SDLnetselect.cpp$(ObjectSuffix) \
