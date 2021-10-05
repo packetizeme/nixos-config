@@ -82,7 +82,7 @@ in
     tcpdump
     vim
     virt-manager
-    sddm-lain-wired-theme
+    # sddm-lain-wired-theme
   ];
 
   # Relocate nixos config using symlink
@@ -125,7 +125,7 @@ in
       videoDrivers = [ "nvidia" ]; # Use NVIDIA driver
       displayManager.sddm = {
         enable = true;
-        theme = "lain-wired";
+        # theme = "lain-wired";
       };
       desktopManager.plasma5.enable = true; # Enable KDE
     };
