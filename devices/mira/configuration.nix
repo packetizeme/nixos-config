@@ -20,13 +20,32 @@ in
   networking = {
     hostName = "mira"; # Define your hostname.
     hostId = "6267c547"; # Needs to be defined to make ZFS happy
-    # wireless.enable = true; # Enables wireless support via wpa_supplicant
     networkmanager.enable = true;
+    wireless.enable = false; # we're using network manager and wpa_supplicant delays boot significantly
+                             # edit - turns out this doesn't make a difference, because network-manager
+                             # uses wpa_supplicant under the hood. An alternative exists but is labeled
+                             # experimental; I'll try it out later.
     useDHCP = false;
     # Disabled interface-specific useDHCP because it delays boot significantly
     # This is addressed by network manager without setting things here.
     interfaces.enp133s0.useDHCP = false;
     interfaces.wlp170s0.useDHCP = false;
+
+    # Need to figure out why boot is so slow and how to improve it. Appears to be related to bringing wifi interface up.
+    # ```
+    # [leah@mira:~/code/nixos-config/devices/mira]$ sudo systemd-analyze critical-chain
+    # The time when unit became active or started is printed after the "@" character.
+    # The time the unit took to start is printed after the "+" character.
+    #
+    # graphical.target @1min 30.495s
+    # └─display-manager.service @1min 30.424s +68ms
+    #   └─systemd-user-sessions.service @1min 30.416s +7ms
+    #     └─network.target @1min 30.411s
+    #       └─network-local-commands.service @1min 30.406s +5ms
+    #         └─network-setup.service @1min 30.302s +102ms
+    #           └─network-addresses-wlp170s0.service @1.230s +280ms
+    #             └─sys-subsystem-net-devices-wlp170s0.device @1.229s
+    # ```
   };
 
 
