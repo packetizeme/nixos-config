@@ -46,6 +46,29 @@ in
     #           └─network-addresses-wlp170s0.service @1.230s +280ms
     #             └─sys-subsystem-net-devices-wlp170s0.device @1.229s
     # ```
+    # Tried marking the wifi interface as unmanaged, which got rid of the boot delay, but left me with no wifi.
+    # networkmanager = {
+    #   enable = true;
+    #   unmanaged = [ "wlp170s0" ];
+    # };
+    #
+    # ```
+    # [leah@mira:~]$ sudo systemd-analyze critical-chain
+    # The time when unit became active or started is printed after the "@" character.
+    # The time the unit took to start is printed after the "+" character.
+    #
+    # graphical.target @889ms
+    # └─accounts-daemon.service @702ms +186ms
+    #   └─nss-user-lookup.target @701ms
+    #     └─nscd.service @680ms +20ms
+    #       └─basic.target @674ms
+    #         └─sockets.target @674ms
+    #           └─nix-daemon.socket @674ms
+    #             └─sysinit.target @672ms
+    #               └─swap.target @672ms
+    #                 └─dev-mapper-cryptswap.swap @667ms +5ms
+    #                   └─dev-mapper-cryptswap.device @666ms # Nice. (except not really, it'd be cool if this were faster :))
+    # ```
   };
 
 
