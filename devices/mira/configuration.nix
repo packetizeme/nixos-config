@@ -7,14 +7,13 @@ in
   imports =
     [
       ./hardware-configuration.nix
+      ../../common
+      ../../users
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Set your time zone.
-  time.timeZone = secrets.timezone;
 
   # Networking
   networking = {
@@ -94,28 +93,8 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  users.users.leah = {
-    isNormalUser = true;
-    uid = 1000;
-    hashedPassword = secrets.leah.hashedPassword;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      p7zip
-      ripgrep
-      shellcheck
-      notmuch
-      tree
-      firefox
-      wget
-      nmap
-      keepassxc
-      git
-    ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    vim
-  ];
+  users.users.root.hashedPassword = secrets.root.hashedPassword;
+  users.users.leah.hashedPassword = secrets.leah.hashedPassword;
 
   services = {
     openssh.enable = false;
@@ -132,8 +111,6 @@ in
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = true;
 
   # Taken from Graham Christen's post on NixOS on the framework laptop
   boot.kernelPackages = pkgs.linuxPackages_latest;
