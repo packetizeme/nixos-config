@@ -8,15 +8,7 @@
     packages = with pkgs; [
       firefox
       git
-      htop
       keepassxc
-      nmap
-      notmuch
-      p7zip
-      ripgrep
-      shellcheck
-      tree
-      wget
     ];
   };
 }

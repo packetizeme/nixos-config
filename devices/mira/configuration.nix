@@ -9,6 +9,7 @@ in
       ./hardware-configuration.nix
       ../../common
       ../../users
+      ../../users/home-manager.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
