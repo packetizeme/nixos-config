@@ -17,6 +17,7 @@ in
     file
     git
     htop
+    ripgrep
     tree
     vim
   ];

@@ -8,7 +8,7 @@ in
     [
       ./hardware-configuration.nix
       ../../common
-      ../../users
+      ../../users/leah.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
