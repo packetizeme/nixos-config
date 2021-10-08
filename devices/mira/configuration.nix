@@ -124,7 +124,7 @@ in
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Taken from Graham Christen's post on NixOS on the framework laptop
+  # Taken from Graham Christensen's post on NixOS on the framework laptop
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.fprintd.enable = true;
 
