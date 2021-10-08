@@ -14,7 +14,10 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    file
     git
+    htop
+    tree
     vim
   ];
 
