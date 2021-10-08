@@ -8,6 +8,8 @@ in
     [
       ./hardware-configuration.nix
       ../../common
+      ../../common/gui.nix
+      #../../common/zfs.nix # Excluded until autoscrub is moved to headless
       ../../users/leah.nix
     ];
 
@@ -78,6 +80,16 @@ in
     desktopManager.gnome.enable = true;
     windowManager.i3.enable = true;
   };
+
+  #virtualization.libvirtd = {
+  #  enable = true;
+  #  qemuRunAsRoot = false;
+  #};
+  environment.systemPackages = with pkgs; [
+    emacs
+    tor-browser-bundle-bin
+  #  virt-manager
+  ];
 
   # gnome3 and KDE cannot coexist without some nudging
   # force use of a specific askPassword program or Nix will barf
