@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  secrets = import ./secrets.nix;
+  commonSecrets = import ./secrets.nix;
 in
 {
   nix.useSandbox = true;
@@ -18,6 +18,7 @@ in
     git
     htop
     ripgrep
+    tmux
     tree
     vim
   ];
@@ -26,7 +27,7 @@ in
 
   services.chrony.enable = true; # Keep clock in sync (NTP)
 
-  time.timeZone = secrets.timezone;
-  location.latitude = secrets.latitude;
-  location.longitude = secrets.longitude;
+  time.timeZone = commonSecrets.timezone;
+  location.latitude = commonSecrets.latitude;
+  location.longitude = commonSecrets.longitude;
 }

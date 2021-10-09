@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
+let
+  secrets = import ./secrets.nix;
+in
 {
   users.users.leah = {
     isNormalUser = true;
@@ -9,11 +12,16 @@
       "audio"
       "libvirtd"
     ];
+    hashedPassword = secrets.leah.hashedPassword;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJrQux0uRRIIqupWbl43o7+KJyedPCDD/vYlbG9+aDfQ leah"
+    ];
     packages = with pkgs; [
       bind # Provides nslookup, dig
       file
       git
       htop
+      jq
       mosh
       nmap
       notmuch
