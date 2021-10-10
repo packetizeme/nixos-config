@@ -10,7 +10,7 @@ in
       ../../common
       ../../common/gui.nix
       #../../common/zfs.nix # Excluded until autoscrub is moved to headless
-      ../../users/leah.nix
+      ../../users
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -105,8 +105,8 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  users.users.root.hashedPassword = secrets.root.hashedPassword;
-  users.users.leah.hashedPassword = secrets.leah.hashedPassword;
+  #users.users.root.hashedPassword = secrets.root.hashedPassword;
+  #users.users.leah.hashedPassword = secrets.leah.hashedPassword;
 
   services = {
     openssh.enable = false;
