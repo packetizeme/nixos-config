@@ -79,6 +79,7 @@ in
     desktopManager.plasma5.enable = true;
     desktopManager.gnome.enable = true;
     windowManager.i3.enable = true;
+    # xkbOptions = "ctrl:swapcaps"; # Disabled because my fingers were getting confused. Can we just disable caps and use both keys for ctrl?
   };
 
   #virtualization.libvirtd = {
@@ -127,6 +128,11 @@ in
   # Taken from Graham Christensen's post on NixOS on the framework laptop
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.fprintd.enable = true;
+
+  # Allow deep sleep
+  boot.kernelParams = [
+    "mem_sleep_default=deep"
+  ];
 
   system.stateVersion = "21.05"; # Version of NixOS first installed on this host
 
