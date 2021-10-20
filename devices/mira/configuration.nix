@@ -89,7 +89,7 @@ in
   environment.systemPackages = with pkgs; [
     emacs
     tor-browser-bundle-bin
-  #  virt-manager
+    virt-manager
   ];
 
   # gnome3 and KDE cannot coexist without some nudging
