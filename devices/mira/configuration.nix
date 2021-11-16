@@ -17,6 +17,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   # Networking
   networking = {
     hostName = "mira"; # Define your hostname.
@@ -90,6 +92,11 @@ in
     emacs
     tor-browser-bundle-bin
     virt-manager
+    lutris
+    vulkan-tools
+    lorri
+    direnv
+    niv
   ];
 
   # gnome3 and KDE cannot coexist without some nudging
@@ -103,8 +110,13 @@ in
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # Vulkan
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
+  #services.touchegg.enable = true;
 
   #users.users.root.hashedPassword = secrets.root.hashedPassword;
   #users.users.leah.hashedPassword = secrets.leah.hashedPassword;
@@ -119,6 +131,26 @@ in
       relay.enable = false;
       openDefaultPorts = false;
     };
+  };
+
+  # pgsql for local Phoenix development
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "hello_dev" ];
+    ensureUsers = [
+      {
+        name = "leah";
+        ensurePermissions = {
+          "ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
+        };
+      }
+      {
+        name = "phoenix";
+        ensurePermissions = {
+          "DATABASE hello_dev" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   # Open ports in the firewall.
