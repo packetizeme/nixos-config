@@ -42,12 +42,6 @@ in
     certs = {
       "mintaka.packetize.me" = {
         email = secrets.leah.email;
-        postRun = ''
-          cp fullchain.pem "/persist/secrets/acme/mintaka.packetize.me/"
-          cp full.pem "/persist/secrets/acme/mintaka.packetize.me/"
-          cp chain.pem "/persist/secrets/acme/mintaka.packetize.me/"
-          cp key.pem "/persist/secrets/acme/mintaka.packetize.me/"
-        '';
       };
     };
   };
@@ -56,8 +50,8 @@ in
     hostname = "mintaka.packetize.me";
     relayDomains = secrets.postfix.relayDomains;
     relayHost = "saiph.packetize.me";
-    sslCert = "/persist/secrets/acme/mintaka.packetize.me/fullchain.pem";
-    sslKey = "/persist/secrets/acme/mintaka.packetize.me/key.pem";
+    sslCert = "/var/lib/acme/mintaka.packetize.me/fullchain.pem";
+    sslKey = "/var/lib/acme/mintaka.packetize.me/key.pem";
   };
 
   networking.firewall.allowedTCPPorts = [ 22 25 80 443 ];

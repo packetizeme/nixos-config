@@ -40,6 +40,12 @@
       fsType = "zfs";
     };
 
+  # Preserve ACME state
+  fileSystems."/var/lib/acme" =
+    { device = "/persist/var/lib/acme";
+      options = [ "bind" "noexec" ];
+    };
+
   swapDevices =
     [ { device = "/dev/mapper/cryptswap"; }
     ];
