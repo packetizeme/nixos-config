@@ -84,19 +84,36 @@ in
     # xkbOptions = "ctrl:swapcaps"; # Disabled because my fingers were getting confused. Can we just disable caps and use both keys for ctrl?
   };
 
-  #virtualization.libvirtd = {
-  #  enable = true;
-  #  qemuRunAsRoot = false;
-  #};
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.runAsRoot = false;
+  };
   environment.systemPackages = with pkgs; [
-    emacs
-    tor-browser-bundle-bin
-    virt-manager
-    lutris
-    vulkan-tools
-    lorri
+    bind # Provides nslookup, dig
+    ddgr
     direnv
+    emacs
+    file
+    git
+    htop
+    jq
+    lorri
+    lutris
+    mosh
     niv
+    nmap
+    notmuch
+    p7zip
+    ripgrep
+    shellcheck
+    sqlite
+    tcpdump
+    tor-browser-bundle-bin
+    tree
+    virt-manager
+    vulkan-tools
+    wget
+    whois
   ];
 
   # gnome3 and KDE cannot coexist without some nudging
@@ -122,7 +139,6 @@ in
     };
   };
 
-
   # Vulkan
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
@@ -145,6 +161,9 @@ in
       openDefaultPorts = false;
     };
   };
+
+  # Local jupyter
+  # services.jupyter.enable = true;
 
   # pgsql for local Phoenix development
   services.postgresql = {
