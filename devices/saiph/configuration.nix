@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  release = "nixos-21.05";
+  release = "nixos-21.11";
   secrets = import ./secrets.nix;
 in {
   imports = [
@@ -12,7 +12,7 @@ in {
       ../../users
       (builtins.fetchTarball {
         url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
-        sha256 = "1fwhb7a5v9c98nzhf3dyqf3a5ianqh7k50zizj8v5nmj3blxw4pi";
+        sha256 = "1i56llz037x416bw698v8j6arvv622qc0vsycd20lx3yx8n77n44";
       })
     ];
 
