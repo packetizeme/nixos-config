@@ -47,7 +47,10 @@
       { device = "/dev/mapper/cryptswap"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement = {
+    #cpuFreqGovernor = lib.mkDefault "powersave";
+    powertop.enable = true;
+  };
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }

@@ -161,6 +161,14 @@ in
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   services.fprintd.enable = true;
 
+  # Improve power usage?
+  services.power-profiles-daemon.enable = false;
+  services.tlp.enable = true;
+  services.tlp.settings = {
+    PCIE_ASPM_ON_BAT = "powersupersave";
+  };
+
+
   # Pin kernel version to 5.12.5 in order to have usable bluetooth (for now; TODO add link to bug ticket(s))
   boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_10.override {
     argsOverride = rec {
