@@ -157,8 +157,8 @@ in
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Taken from Graham Christensen's post on NixOS on the framework laptop
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Verified that bluetooth is working this version
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
   services.fprintd.enable = true;
 
   # Improve power usage?
@@ -167,19 +167,6 @@ in
   services.tlp.settings = {
     PCIE_ASPM_ON_BAT = "powersupersave";
   };
-
-
-  # Pin kernel version to 5.12.5 in order to have usable bluetooth (for now; TODO add link to bug ticket(s))
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_10.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-        url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-        sha256 = "1x39sdswww4j8zr54wpjzy9dia52kihs11xwljxcnz8pck0vwja0";
-      };
-      version = "5.12.5";
-      modDirVersion = "5.12.5";
-    };
-  });
 
   # Allow deep sleep
   boot.kernelParams = [
