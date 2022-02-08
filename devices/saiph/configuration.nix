@@ -107,7 +107,7 @@ in {
     dkimSelector = "saiph";
     lmtpSaveToDetailMailbox = "no";
     hierarchySeparator = "/";
-    fullTextSearch.enable = false;
+    fullTextSearch.enable = true;
   };
   services.rspamd.overrides = {
     "actions.conf".text = ''
