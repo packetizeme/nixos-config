@@ -48,6 +48,8 @@ in
       }
     ];
   };
+  programs.mosh.enable = config.services.openssh.enable;
+
   services.fail2ban.enable = true;
 
   # TODO Fill this out - saiph has example
