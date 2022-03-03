@@ -28,6 +28,17 @@ in
     interfaces.enp0s5.useDHCP = true;
   };
 
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces.wg0 = {
+    ips = [ "172.27.1.7" ];
+    listenPort = secrets.wg0.port;
+    privateKeyFile = "/persist/secrets/wireguard/wg-mintaka.key";
+    peers = secrets.wg0.peers;
+  };
+  networking.hosts = {
+    "172.27.1.6" = [ "saiph" "saiph.wg.local" ];
+  };
+
   # Services
   services.nginx = {
     enable = true;
@@ -54,7 +65,9 @@ in
     sslKey = "/var/lib/acme/mintaka.packetize.me/key.pem";
   };
 
-  networking.firewall.allowedTCPPorts = [ 22 25 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 25 80 443 ];
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedUDPPorts = [ secrets.wg0.port ];
 
   system.stateVersion = "21.05"; # Did you read the comment?
 
