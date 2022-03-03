@@ -32,6 +32,17 @@ in {
     interfaces.ens3.useDHCP = true;
   };
 
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces.wg0 = {
+    ips = [ "172.27.1.6" ];
+    listenPort = secrets.wg0.port;
+    privateKeyFile = "/persist/secrets/wireguard/wg-saiph.key";
+    peers = secrets.wg0.peers;
+  };
+  networking.hosts = {
+    "172.27.1.7" = [ "mintaka" "mintaka.wg.local" ];
+  };
+
   # Services
   services.nginx = {
     enable = true;
@@ -116,7 +127,9 @@ in {
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedUDPPorts = [ secrets.wg0.port ];
 
   # Automatic backup
   services.borgbackup.jobs.home = secrets.services.borgbackup.jobs.home;
