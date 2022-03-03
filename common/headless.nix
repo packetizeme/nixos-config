@@ -28,7 +28,6 @@ in
   services.zfs.autoScrub.enable = true; # TODO Only set if ZFS is in use
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 ];
 
   services.chrony.enable = true; # NTP
 
@@ -36,6 +35,7 @@ in
   services.openssh = {
     passwordAuthentication = false;
     permitRootLogin = "no";
+    openFirewall = false;
     hostKeys = [
       {
         bits = 4096;
@@ -48,7 +48,6 @@ in
       }
     ];
   };
-  programs.mosh.enable = config.services.openssh.enable;
 
   services.fail2ban.enable = true;
 
