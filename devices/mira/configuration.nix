@@ -124,6 +124,7 @@ in
   security.pam.services.KWallet.enableKwallet = true; # Don't ask us to auth to kwallet at login - this isn't set by plasma5.enable.
   security.pam.services.login.enableKwallet = true;
   security.tpm2.enable = true;
+  services.hardware.bolt.enable = true; # Provide control over thunderbolt interfaces
 
   virtualisation.libvirtd = {
     enable = true;
@@ -182,6 +183,9 @@ in
     fishPlugins.fzf-fish # Requires fzf, fd
     fzf
     fd
+    qpwgraph # Graph manager for PipeWire
+    jellyfin-media-player
+    deadbeef
   ];
 
   programs.steam.enable = true;
@@ -268,6 +272,7 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     General = {
       Enable = "Source,Sink,Media,Socket";
@@ -376,6 +381,8 @@ in
       };
     };
   };
+
+  powerManagement.enable = true;
 
   assertions = [
     {
