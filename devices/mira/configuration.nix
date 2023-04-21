@@ -40,7 +40,7 @@ in
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     mandatoryFeatures = [ ];
   }];
-  #nix.distributedBuilds = true;
+  nix.distributedBuilds = false;
 
   nix.extraOptions = ''
     keep-outputs = true
@@ -186,6 +186,7 @@ in
     qpwgraph # Graph manager for PipeWire
     jellyfin-media-player
     deadbeef
+    duf
   ];
 
   programs.steam.enable = true;
