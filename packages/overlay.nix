@@ -6,4 +6,5 @@ self: super:
  });
 
   sddm-lain-wired-theme = self.callPackage ./sddm-lain-wired-theme { };
+  phetch = callPackage ../applications/networking/gopher/phetch { };
 }

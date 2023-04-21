@@ -19,7 +19,6 @@ in
 
   users.mutableUsers = false;
 
-  nix.useSandbox = true;
   nix.autoOptimiseStore = true;
   nix.gc.automatic = true;
   nix.gc.dates = "*:0/30";

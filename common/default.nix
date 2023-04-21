@@ -4,7 +4,7 @@ let
   commonSecrets = import ./secrets.nix;
 in
 {
-  nix.useSandbox = true;
+  nix.settings.sandbox = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
 
